@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ProfileLocations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfileActivity">
+
+        <TextView
+            android:id="@+id/ProfileText"
+            android:layout_width="420dp"
+            android:layout_height="90dp"
+            android:background="#64848080"
+            android:text="@string/Profile"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="60sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileText">
+
+            <ImageView
+                android:id="@+id/ProfilePhoto"
+                android:layout_width="142dp"
+                android:layout_height="172dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/profile_image"
+                tools:ignore="ImageContrastCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ProfileName"
+                    android:layout_width="239dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/name"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    app:autoSizeTextType="uniform" />
+
+                <RatingBar
+                    android:id="@+id/ProfileRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/star_rating"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="5" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="413dp"
+            android:layout_height="440dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/FishCaughtText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/fish_caught"
+                    android:textSize="45sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/ProfileFishCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:textSize="34sp"
+                    app:autoSizeTextType="uniform" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/LocationSavedText"
+                    android:layout_width="309dp"
+                    android:layout_height="60dp"
+                    android:text="@string/locations_saved"
+                    android:textSize="45sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/ProfileLocationCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0"
+                    android:textSize="34sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/locationBtn"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:text="Locations" />
+
+            <Button
+                android:id="@+id/LogoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:text="@string/logout" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
