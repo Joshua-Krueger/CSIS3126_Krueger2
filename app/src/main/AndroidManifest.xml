@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".LocationDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewLocationActivity"
             android:exported="false" />
         <activity

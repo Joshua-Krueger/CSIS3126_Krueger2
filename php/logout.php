@@ -9,20 +9,7 @@ if($con){
 
 }
 
-$stmt = $con->prepare("DELETE from tokens WHERE token=?");
-$stmt->bind_param("s",$_POST["token"]);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if($result==0){
-	//echo "success";
-
-}else{
-	echo "failed";
-}
-
 $stmt = $con->prepare("UPDATE users SET token= NULL");
-//$stmt->bind_param("s","null");
 $stmt->execute();
 $result = $stmt->get_result();
 

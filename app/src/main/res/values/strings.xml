@@ -19,4 +19,5 @@
     <string name="add">Add</string>
     <string name="scrollable_container_for_coordinate_data">Scrollable container for coordinate data</string>
     <string name="logout">Logout</string>
+    <string name="view_details">View Details</string>
 </resources>
