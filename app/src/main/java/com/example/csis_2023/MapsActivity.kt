@@ -65,7 +65,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val description = location.getString("description")
                     val rating = location.getString("rating")
 
-                    //todo fix this thing
                     val newLocation = LatLng(latitude.toDouble(),longitude.toDouble())
                     map.addMarker(MarkerOptions().position(newLocation).title(name).snippet(description))
                     //map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
