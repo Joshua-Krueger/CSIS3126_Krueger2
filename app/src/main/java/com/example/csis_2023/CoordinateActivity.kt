@@ -80,6 +80,8 @@ class CoordinateActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "http://10.129.17.5/fishfinder/send_locations.php"
 
+        //val url = "http://10.129.90.217/fishfinder/send_locations.php"
+
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
                 for (i in 0 until response.length()) {
@@ -108,7 +110,7 @@ class CoordinateActivity : AppCompatActivity() {
                 }
             },
             { error ->
-                // Handle the error
+                Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
             })
 
         queue.add(request)

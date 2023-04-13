@@ -136,6 +136,12 @@
                 android:text="Locations" />
 
             <Button
+                android:id="@+id/mapBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Map" />
+
+            <Button
                 android:id="@+id/LogoutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1084807799329",
+    "project_id": "fishfinder-33317",
+    "storage_bucket": "fishfinder-33317.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084807799329:android:aeeacf4246f3d39ec43960",
+        "android_client_info": {
+          "package_name": "com.example.csis_2023"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084807799329-ciocb6q15qf30mper7kial34ofcgu04a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuE3U92IMNDab98K5TXMfWRh7YD6vbfRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084807799329-ciocb6q15qf30mper7kial34ofcgu04a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

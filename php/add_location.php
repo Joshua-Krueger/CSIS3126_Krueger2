@@ -1,29 +1,31 @@
 <?php
+header("Content-Type: application/json");
 
-$con = mysqli_connect("localhost", "root", "", "fishfinder");
+// Extract the location data from the POST request
+$token = $_POST["token"];
+$name = $_POST["name"];
+$state = $_POST["state"];
+$town = $_POST["town"];
+$latitude = $_POST["latitude"];
+$longitude = $_POST["longitude"];
+$description = $_POST["description"];
 
-// get the JSON object from the POST request
-$json_str = file_get_contents('php://input');
+// Add defaults for rating and thumbnail
+$id = null;
+$thumbnail = null;
 
-// convert the JSON string to a PHP array
-$json_arr = json_decode($json_str, true);
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "fishfinder";
 
-// access the parameters sent from the Kotlin code
-$token = $json_arr['token'];
-$name = $json_arr['name'];
-$state = $json_arr['state'];
-$town = $json_arr['town'];
-$latlng = $json_arr['latlng'];
-$latitude = $json_arr['latitude'];
-$longitude = $json_arr['longitude'];
-$description = $json_arr['description'];
-$thumbnail = NULL;
-
-if (!$con) {
-    die("connection failed: " . mysqli_connect_error());
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-$stmt = $con->prepare("SELECT * from users WHERE token=?");
+$stmt = $conn->prepare("SELECT * from users WHERE token=?");
 $stmt->bind_param("s", $token);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -32,20 +34,23 @@ if ($row !== null) {
     $user_id = $row["user_id"];
 } else {
     // handle the case where the token is invalid
-    die("invalid token");
+    die(json_encode(array('status' => 'failed', 'message' => 'invalid token')));
 }
 
-$stmt = $con->prepare("INSERT into locations(user_id,name,state,town,latlng,latitude,longitude,description,thumbnail) values(?,?,?,?,?,?,?,?,?)");
-$stmt->bind_param("sssssssss", $user_id, $name, $state, $town, $latlng, $latitude, $longitude, $description, $thumbnail);
-$result = $stmt->execute();
+// Prepare the SQL statement with placeholders for the location data
+$stmt = mysqli_prepare($conn, "INSERT INTO locations (id, name, state, town, latitude, longitude, description, thumbnail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+mysqli_stmt_bind_param($stmt, "ssssssss", $id, $name, $state, $town, $latitude, $longitude, $description, $thumbnail);
 
-$response = array();
-if ($result == 200) {
-    $response['status'] = 'success';
+// Execute the prepared statement with the location data
+if (mysqli_stmt_execute($stmt)) {
+    $response_array["status"] = "success";
 } else {
-    $response['status'] = 'failed';
+    $response_array["status"] = "error";
 }
 
-echo json_encode($response);
+mysqli_stmt_close($stmt);
+mysqli_close($conn);
 
+// Return the response as a JSON object
+echo json_encode($response_array);
 ?>

@@ -24,6 +24,11 @@ class ProfileActivity : AppCompatActivity() {
         val token = TokenManager.getToken().toString()
         profileRequest(token)
 
+        bind.mapBtn.setOnClickListener{
+            val intent = Intent(this,MapsActivity::class.java)
+            startActivity(intent)
+        }
+
         bind.locationBtn.setOnClickListener{
             val intent = Intent(this, CoordinateActivity::class.java)
             startActivity(intent)
@@ -38,7 +43,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun logoutRequest(token: String) {
         val url = "http://10.129.17.5/fishfinder/logout.php"
-        //val url2 = "http://192.168.50.110/fishfinder/logout.php"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,
@@ -65,7 +69,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun profileRequest(token: String) {
         val url = "http://10.129.17.5/fishfinder/load_profile.php"
-        //val url2 = "http://192.168.50.110/fishfinder/load_profile.php"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,

@@ -56,7 +56,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun loginRequest() {
+        //dorm room testing
         val url = "http://10.129.17.5/fishfinder/login.php"
+
+        //classroom testing
+        //val url = "http://10.129.90.217/fishfinder/login.php"
+
         val email = bind.loginEmail.text.toString()
         val password = bind.loginPass.text.toString()
 
@@ -112,44 +117,4 @@ class MainActivity : AppCompatActivity() {
         // Add the request to the Volley request queue
         Volley.newRequestQueue(this).add(request)
     }
-
-/*    private fun loginRequest(email : String,password : String, token: String) {
-        val url = "http://10.129.17.5/fishfinder/login.php"
-
-        val requestQueue: RequestQueue = Volley.newRequestQueue(this)
-        val stringRequest: StringRequest = object : StringRequest(Method.POST, url,
-            Response.Listener { response ->
-                Log.e("response:", response)
-                if (response.trim() == "success") {
-                    //intent to logged in activity goes in here
-                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-
-                    // save the userdata to the phone so they can be retrieved on next open if user selected remember me
-                    with(sharedPreferences.edit()) {
-                        putString("email", email)
-                        putString("password", password)
-                        putBoolean("rememberMe", bind.rememberMeCheck.isChecked)
-                        apply()
-                    }
-
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
-                }
-            }, Response.ErrorListener { error ->
-                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
-            }) {
-            override fun getParams(): MutableMap<String, String> {
-                val params = HashMap<String, String>()
-                params["email"] = email
-                params["password"] = password
-                params["token"] = token.toString()
-                return params
-            }
-            // passing data
-        }
-        Log.e("login request", stringRequest.toString())
-        requestQueue.add(stringRequest)
-    }*/
 }
