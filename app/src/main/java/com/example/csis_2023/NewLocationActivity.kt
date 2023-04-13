@@ -173,69 +173,10 @@ class NewLocationActivity : AppCompatActivity() {
         }
     }
 
-
-    /*private fun newLocationRequest() {
-        val token = TokenManager.getToken()
-        val name = bind.locationName.text.toString()
-        val state = bind.locationState.text.toString()
-        val town = bind.locationTown.text.toString()
-        val latitude = bind.latitudeText.text.toString()
-        val longitude = bind.longitudeText.text.toString()
-        val description = bind.locationDescription.text.toString()
-        val queue = Volley.newRequestQueue(this)
-
-        val params = JSONObject()
-        params.put("token", token)
-        Log.e("send", token.toString())
-        params.put("name", name)
-        Log.e("send", name)
-        params.put("state", state)
-        Log.e("send", state)
-        params.put("town", town)
-        Log.e("send", town)
-        params.put("latitude", latitude)
-        Log.e("send", latitude)
-        params.put("longitude", longitude)
-        Log.e("send", longitude)
-        params.put("description", description)
-        Log.e("send", description)
-
-        val url = "http://10.129.17.5/fishfinder/add_location.php"
-
-        //val url = "http://10.129.90.217/fishfinder/add_location.php"
-        val request = JsonObjectRequest(
-            Request.Method.POST, url, params,
-            { response ->
-                Log.e("response",response.toString())
-                val status = response.getString("status")
-                Log.e("status", status)
-                if (status == "success") {
-                    Log.e("new location", "location should be added")
-                    Toast.makeText(this, "Successfully added location", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, CoordinateActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
-                }
-                val responseString = response.toString()
-                Log.d("response", responseString)
-            },
-            { error ->
-                if (error is TimeoutError) {
-                    Toast.makeText(this, "Request timed out", Toast.LENGTH_LONG).show()
-                } else {
-                    val responseString = String(error.networkResponse.data)
-                    Log.e("error", responseString)
-                    Toast.makeText(this, "Error with response: " + error.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        )
-
-        queue.add(request)
-    }*/
-
     private fun newLocationRequest(){
         val url = "http://10.129.17.5/fishfinder/add_location.php"
+        //val url = "http://10.129.90.217/fishfinder/add_location.php"
+
         val token = TokenManager.getToken().toString()
         val name = bind.locationName.text.toString()
         val state = bind.locationState.text.toString()

@@ -1,19 +1,11 @@
 package com.example.csis_2023
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,8 +13,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.csis_2023.databinding.ActivityMapsBinding
-import org.json.JSONObject
-import java.util.HashMap
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -53,16 +43,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        //TODO: add in a request here to send_locations.php and write code to create a new pin for each location in the function
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        displayLocations()
     }
 
     private fun displayLocations() {
-        // TODO handling the location data received from the request
         val queue = Volley.newRequestQueue(this)
         val url = "http://10.129.17.5/fishfinder/send_locations.php"
 
@@ -81,7 +65,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val description = location.getString("description")
                     val rating = location.getString("rating")
 
-
+                    //todo fix this thing
+                    val newLocation = LatLng(latitude.toDouble(),longitude.toDouble())
+                    map.addMarker(MarkerOptions().position(newLocation).title(name).snippet(description))
+                    //map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
                 }
             },
             { error ->
