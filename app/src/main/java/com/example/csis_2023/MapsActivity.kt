@@ -1,7 +1,13 @@
 package com.example.csis_2023
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -13,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.csis_2023.databinding.ActivityMapsBinding
+import com.google.android.gms.maps.model.Marker
+import org.w3c.dom.Text
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -44,6 +52,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map = googleMap
 
         displayLocations()
+
+        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+            override fun getInfoContents(marker: Marker): View? {
+                val view = layoutInflater.inflate(R.layout.marker_info_window, null)
+                val title = view.findViewById<TextView>(R.id.titleTextView)
+                val snippet = view.findViewById<TextView>(R.id.snippetTextView)
+                val rating = view.findViewById<RatingBar>(R.id.locationRatingBar)
+
+                title.text = marker.title
+                snippet.text = marker.snippet
+                // TODO add a back button to the mapview
+                // TODO find a way to add the rating number from the database here so i can make the stars show up in the info window
+                // TODO also edit table in sql to have reviews, that way on each location data page, we can sort by review and all that.
+                return view
+            }
+
+            override fun getInfoWindow(marker: Marker): View? {
+                return null
+            }
+        })
     }
 
     private fun displayLocations() {
@@ -66,8 +94,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val rating = location.getString("rating")
 
                     val newLocation = LatLng(latitude.toDouble(),longitude.toDouble())
-                    map.addMarker(MarkerOptions().position(newLocation).title(name).snippet(description))
-                    //map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
+
+                    val markerOptions = MarkerOptions().position(newLocation).title(name).snippet(description + " rating: " + rating)
+                    map.addMarker(markerOptions)
+                    map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
+
                 }
             },
             { error ->
