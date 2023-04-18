@@ -1,6 +1,7 @@
 package com.example.csis_2023
 
 import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,11 @@ class LocationDetailsActivity : AppCompatActivity() {
 
         prepareFields()
 
+
+        bind.changeLocationImageBtn.setOnClickListener{
+            val intent = Intent(this,ImageActivity::class.java)
+            startActivity(intent.putExtra("type","location"))
+        }
 
         bind.locationDetailsBackBtn.setOnClickListener{
             val intent = Intent(this,CoordinateActivity::class.java)

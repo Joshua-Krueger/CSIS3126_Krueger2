@@ -29,6 +29,7 @@ class RegistrationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //TODO
         bind.RegisterBtn.setOnClickListener {
             Log.d("RegistrationActivity","register button was clicked")
             val name = bind.registrationName.text.toString()

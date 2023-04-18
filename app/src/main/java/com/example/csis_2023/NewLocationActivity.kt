@@ -17,10 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.TimeoutError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.csis_2023.databinding.ActivityNewLocationBinding
@@ -28,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng
 import org.json.JSONObject
 import java.util.*
 
-//TODO figuring out how this works still
 class NewLocationActivity : AppCompatActivity() {
 
     companion object {
@@ -187,7 +183,7 @@ class NewLocationActivity : AppCompatActivity() {
 
         val requestQueue = Volley.newRequestQueue(this)
         val stringRequest = object : StringRequest(Method.POST, url,
-            Response.Listener<String> { response ->
+            Response.Listener { response ->
                 // Handle the response
                 val jsonObject = JSONObject(response)
                 val status = jsonObject.getString("status")

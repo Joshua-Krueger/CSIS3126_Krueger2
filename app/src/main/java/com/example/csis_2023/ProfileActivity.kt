@@ -24,6 +24,11 @@ class ProfileActivity : AppCompatActivity() {
         val token = TokenManager.getToken().toString()
         profileRequest(token)
 
+        bind.ChangeProfilePicBtn.setOnClickListener{
+            val intent = Intent(this,ImageActivity::class.java)
+            startActivity(intent.putExtra("type","profile"))
+        }
+
         bind.mapBtn.setOnClickListener{
             val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
