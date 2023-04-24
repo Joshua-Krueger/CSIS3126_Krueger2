@@ -49,8 +49,30 @@ if (mysqli_stmt_execute($stmt)) {
 }
 
 mysqli_stmt_close($stmt);
+
+$stmt = $conn->prepare("SELECT * from locations WHERE name=?");
+$stmt->bind_param("s", $name);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+if ($row !== null) {
+    $location_id = $row["id"];
+}
+
+// for some reason, this statement is not happening, fix it
+$stmt = $conn->prepare("INSERT INTO user_locations (id, user_id, location_id) VALUES (?, ?, ?)");
+mysqli_stmt_bind_param($stmt, "sss", $id, $user_id, $location_id);
+
+if (mysqli_stmt_execute($stmt)) {
+    $response_array["status"] = "success";
+} else {
+    $response_array["status"] = "error";
+}
+
+mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
 // Return the response as a JSON object
 echo json_encode($response_array);
+
 ?>

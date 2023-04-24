@@ -153,6 +153,12 @@
                 android:layout_height="68dp"
                 android:text="@string/logout" />
 
+            <Button
+                android:id="@+id/helpButtonProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Help" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

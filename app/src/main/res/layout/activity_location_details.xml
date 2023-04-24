@@ -15,18 +15,19 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="411dp"
+            android:layout_height="225dp"
             android:scaleType="centerCrop"
             android:src="@drawable/app_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/location_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="282dp"
+            android:layout_height="80dp"
             android:layout_below="@+id/image_view"
             android:padding="16dp"
             android:text="Location Name"
@@ -35,6 +36,14 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_view" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_name" />
 
         <TextView
             android:id="@+id/location_town"
@@ -45,29 +54,18 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location_name" />
-
-        <TextView
-            android:id="@+id/location_state"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Location State"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location_town" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         <TextView
             android:id="@+id/location_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:padding="0dp"
             android:text="Location Description"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location_state" />
+            app:layout_constraintTop_toBottomOf="@+id/location_town" />
 
         <LinearLayout
             android:layout_width="410dp"
@@ -78,18 +76,71 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location_description">
 
-            <Button
-                android:id="@+id/changeLocationImageBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Change Location Image" />
+                android:layout_height="61dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/locationDetailsBackBtn"
+                <Button
+                    android:id="@+id/addFishImageBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Add Fish Image" />
+
+                <Button
+                    android:id="@+id/locationDetailsBackBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Back" />
+
+                <Button
+                    android:id="@+id/helpButtonLocationDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Help" />
+            </LinearLayout>
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Back" />
+                android:layout_height="171dp">
+
+                <GridView
+                    android:id="@+id/image_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="16dp"
+                    android:numColumns="3"
+                    android:verticalSpacing="16dp">
+
+                </GridView>
+
+            </ScrollView>
+
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/locationDetailsRateBtn"
+            android:layout_width="165dp"
+            android:layout_height="54dp"
+            android:text="Rate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/location_name" />
+
+        <Button
+            android:id="@+id/changeLocationImageBtn"
+            android:layout_width="127dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="8dp"
+            android:text="Change Location Image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toEndOf="@+id/location_name"
+            app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

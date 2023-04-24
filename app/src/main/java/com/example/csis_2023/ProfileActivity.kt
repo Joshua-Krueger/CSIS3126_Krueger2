@@ -18,6 +18,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.e("token", TokenManager.getToken().toString())
         bind = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
@@ -48,8 +49,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun logoutRequest(token: String) {
         val url = "http://10.129.17.5/fishfinder/logout.php"
-        //val url = "http://10.129.90.217/fishfinder/logout.php"
 
+        //val url = "http://192.168.1.154/fishfinder/logout.php"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,
@@ -76,8 +77,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun profileRequest(token: String) {
         val url = "http://10.129.17.5/fishfinder/load_profile.php"
-        //val url = "http://10.129.90.217/fishfinder/load_profile.php"
 
+        //val url = "http://192.168.1.154/fishfinder/load_profile.php"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,

@@ -38,6 +38,7 @@ class NewLocationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.e("token", TokenManager.getToken().toString())
         bind = ActivityNewLocationBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
@@ -171,7 +172,8 @@ class NewLocationActivity : AppCompatActivity() {
 
     private fun newLocationRequest(){
         val url = "http://10.129.17.5/fishfinder/add_location.php"
-        //val url = "http://10.129.90.217/fishfinder/add_location.php"
+
+        //val url = "http://192.168.1.154/fishfinder/add_location.php"
 
         val token = TokenManager.getToken().toString()
         val name = bind.locationName.text.toString()
@@ -203,12 +205,19 @@ class NewLocationActivity : AppCompatActivity() {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
                 params["token"] = token
+                Log.e("new location",token)
                 params["name"] = name
+                Log.e("new location",name)
                 params["state"] = state
+                Log.e("new location",state)
                 params["town"] = town
+                Log.e("new location",town)
                 params["latitude"] = latitude
+                Log.e("new location",latitude)
                 params["longitude"] = longitude
+                Log.e("new location",longitude)
                 params["description"] = description
+                Log.e("new location",description)
                 return params
             }
         }

@@ -59,8 +59,7 @@ class MainActivity : AppCompatActivity() {
         //dorm room testing
         val url = "http://10.129.17.5/fishfinder/login.php"
 
-        //classroom testing
-        //val url = "http://10.129.90.217/fishfinder/login.php"
+        //val url = "http://192.168.1.154/fishfinder/login.php"
 
         val email = bind.loginEmail.text.toString()
         val password = bind.loginPass.text.toString()

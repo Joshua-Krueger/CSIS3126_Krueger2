@@ -29,7 +29,6 @@ class RegistrationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //TODO
         bind.RegisterBtn.setOnClickListener {
             Log.d("RegistrationActivity","register button was clicked")
             val name = bind.registrationName.text.toString()
@@ -54,7 +53,8 @@ class RegistrationActivity : AppCompatActivity() {
 //--------------------------------------------------------------------------------------------------\\
     private fun registerRequest(name : String, email : String, password : String) {
         val url = "http://10.129.17.5/fishfinder/register.php"
-        //val url = "http://10.129.90.217/fishfinder/register.php"
+
+        //val url = "http://192.168.1.154/fishfinder/register.php"
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(this)
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,

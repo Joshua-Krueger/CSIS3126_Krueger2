@@ -30,13 +30,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.e("token", TokenManager.getToken().toString())
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Set the Toolbar as the support action bar
+        setSupportActionBar(binding.toolbar)
+
+        // Show the up navigation arrow in the support action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(com.google.android.material.R.drawable.ic_arrow_back_black_24)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        // Handle the up navigation button press
+        onBackPressed()
+        return true
     }
 
     /**
@@ -58,11 +73,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val view = layoutInflater.inflate(R.layout.marker_info_window, null)
                 val title = view.findViewById<TextView>(R.id.titleTextView)
                 val snippet = view.findViewById<TextView>(R.id.snippetTextView)
-                val rating = view.findViewById<RatingBar>(R.id.locationRatingBar)
 
                 title.text = marker.title
                 snippet.text = marker.snippet
-                // TODO add a back button to the mapview
                 // TODO find a way to add the rating number from the database here so i can make the stars show up in the info window
                 // TODO also edit table in sql to have reviews, that way on each location data page, we can sort by review and all that.
                 return view
@@ -78,7 +91,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val queue = Volley.newRequestQueue(this)
         val url = "http://10.129.17.5/fishfinder/send_locations.php"
 
-        //val url = "http://10.129.90.217/fishfinder/send_locations.php"
+        //val url = "http://192.168.1.154/fishfinder/send_locations.php"
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -86,16 +99,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 for (i in 0 until response.length()) {
                     val location = response.getJSONObject(i)
                     val name = location.getString("name")
-                    val town = location.getString("town")
-                    val state = location.getString("state")
                     val latitude = location.getString("latitude")
                     val longitude = location.getString("longitude")
                     val description = location.getString("description")
-                    val rating = location.getString("rating")
 
                     val newLocation = LatLng(latitude.toDouble(),longitude.toDouble())
 
-                    val markerOptions = MarkerOptions().position(newLocation).title(name).snippet(description + " rating: " + rating)
+                    val markerOptions = MarkerOptions().position(newLocation).title(name).snippet("$description \nPlease go to the locations page from the profile to see the full information for this location.")
                     map.addMarker(markerOptions)
                     map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
 

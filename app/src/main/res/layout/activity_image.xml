@@ -6,37 +6,49 @@
     </data>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="2dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/helpButtonImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Help" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="1224dp"
-            android:layout_weight="1" />
+            android:layout_height="520dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="74dp"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonLoadPicture"
+                android:id="@+id/btn_select_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Load Picture" />
+                android:text="Select Image" />
 
             <Button
-                android:id="@+id/buttonBack"
+                android:id="@+id/btn_upload_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Upload Image" />
+
+            <Button
+                android:id="@+id/btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Back" />
+
         </LinearLayout>
 
     </LinearLayout>

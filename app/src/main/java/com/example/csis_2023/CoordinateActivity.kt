@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.android.volley.Request
@@ -20,6 +21,7 @@ class CoordinateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.e("token", TokenManager.getToken().toString())
         bind = ActivityCoordinateBinding.inflate(layoutInflater)
         setContentView(bind.root)
 
@@ -80,7 +82,7 @@ class CoordinateActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "http://10.129.17.5/fishfinder/send_locations.php"
 
-        //val url = "http://10.129.90.217/fishfinder/send_locations.php"
+        //val url = "http://192.168.1.154/fishfinder/send_locations.php"
 
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
@@ -110,7 +112,7 @@ class CoordinateActivity : AppCompatActivity() {
                 }
             },
             { error ->
-                Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "something went wrong with displaying locations", Toast.LENGTH_LONG).show()
             })
 
         queue.add(request)
