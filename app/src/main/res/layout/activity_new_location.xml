@@ -24,7 +24,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="25dp">
 
                 <Button
                     android:id="@+id/newLocationBackBtn"
@@ -117,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="top|start"
-                    android:hint="Location Description"
+                    android:hint="Location Description: A brief description that includes some details about the location as well as maybe equipment you use there. Must be under 255 characters"
                     android:maxLines="10"
                     android:scrollbars="vertical"
                     android:textSize="30sp" />

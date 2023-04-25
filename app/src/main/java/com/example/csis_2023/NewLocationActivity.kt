@@ -80,8 +80,10 @@ class NewLocationActivity : AppCompatActivity() {
             val description = bind.locationDescription.text.toString()
             if (name == "" || description == ""){
                 Toast.makeText(this,"all fields must be filled",Toast.LENGTH_LONG).show()
+            }else if (description.length > 255){
+                Toast.makeText(this,"Description must be less than 255 characters long.",Toast.LENGTH_LONG).show()
             }else{
-            newLocationRequest()
+                newLocationRequest()
             }
         }
 

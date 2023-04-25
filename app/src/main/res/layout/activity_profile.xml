@@ -103,13 +103,13 @@
                     android:textSize="45sp"
                     app:autoSizeTextType="uniform" />
 
-                <TextView
-                    android:id="@+id/ProfileFishCount"
+                <Button
+                    android:id="@+id/profileFishCountBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textSize="34sp"
-                    app:autoSizeTextType="uniform" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="30sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -122,16 +122,18 @@
                     android:layout_width="309dp"
                     android:layout_height="60dp"
                     android:text="@string/locations_saved"
-                    android:textSize="45sp"
+                    android:textSize="40sp"
                     app:autoSizeTextType="uniform" />
 
-                <TextView
-                    android:id="@+id/ProfileLocationCount"
+                <Button
+                    android:id="@+id/profileLocationCountBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textSize="34sp"
-                    app:autoSizeTextType="uniform" />
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </LinearLayout>
 

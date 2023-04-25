@@ -1,5 +1,6 @@
 package com.example.csis_2023
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +15,19 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.csis_2023.databinding.ActivityProfileBinding
+import org.json.JSONException
+import org.json.JSONObject
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var bind : ActivityProfileBinding
     private lateinit var helpDialog: Dialog
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //TODO need to add buttons for user specific fish and location pages --> add functionality for these now
+        // also! calculate rating based on the rating of all of their locations (;-;)
 
         Log.e("token", TokenManager.getToken().toString())
         bind = ActivityProfileBinding.inflate(layoutInflater)
@@ -114,29 +121,34 @@ class ProfileActivity : AppCompatActivity() {
         val stringRequest: StringRequest = object : StringRequest(Method.POST, url,
             Response.Listener { response ->
                 Log.e("response:", response)
-                if (response.substringBefore(":") == "information") {
-                    //intent to logged in activity goes in here
-                    Toast.makeText(this, "profile retrieval successful", Toast.LENGTH_SHORT).show()
-                    val link = response.substringAfterLast(",")
-                    var rating = response.substringAfter(",")
-                    rating = rating.substringBefore(",")
-                    var name = response.substringAfter(":")
-                    name = name.substringBefore(",")
-                    //bind.ProfileName.setText(name)
-                    //bind.ProfileRatingBar.rating = rating
-                    Log.e("link:",link)
-                    Glide.with(this)
-                        .load(link)
-                        .into(bind.ProfilePhoto)
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.has("name") && jsonObject.has("trust_rating") && jsonObject.has("profile_picture")) {
+                        val name = jsonObject.getString("name")
+                        val trustRating = jsonObject.getDouble("trust_rating")
+                        val profilePictureUrl = jsonObject.getString("profile_picture")
+                        val fishNum = jsonObject.getString("fish_num")
+                        val locationNum = jsonObject.getString("location_num")
 
+                        //intent to logged in activity goes in here
+                        Toast.makeText(this, "profile retrieval successful", Toast.LENGTH_SHORT).show()
 
-                    bind.ProfileRatingBar.rating = rating.toFloat()
-                    bind.ProfileName.setText(name)
+                        bind.ProfileName.text = name
+                        bind.ProfileRatingBar.rating = trustRating.toFloat()
+                        bind.profileFishCountBtn.text = fishNum
+                        bind.profileLocationCountBtn.text = locationNum
 
-                } else {
-                    Toast.makeText(this, "profile retrieval failed", Toast.LENGTH_SHORT).show()
+                        Glide.with(this)
+                            .load(profilePictureUrl)
+                            .into(bind.ProfilePhoto)
+                    } else {
+                        Toast.makeText(this, "Invalid response format", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    Toast.makeText(this, "Failed to parse response", Toast.LENGTH_SHORT).show()
                 }
-            }, Response.ErrorListener { error ->
+            },
+            Response.ErrorListener { error ->
                 Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
             }) {
             override fun getParams(): MutableMap<String, String> {
@@ -144,9 +156,10 @@ class ProfileActivity : AppCompatActivity() {
                 params["token"] = token
                 return params
             }
-            // passing data
         }
+
         requestQueue.add(stringRequest)
     }
+
 
 }
