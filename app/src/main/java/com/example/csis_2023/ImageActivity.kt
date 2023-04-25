@@ -1,6 +1,7 @@
 package com.example.csis_2023
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,6 +12,7 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -25,6 +27,8 @@ class ImageActivity : AppCompatActivity() {
     private val PICK_IMAGE_REQUEST = 1
     private lateinit var bind: ActivityImageBinding
     private lateinit var imageView: ImageView
+    private lateinit var helpDialog: Dialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,28 @@ class ImageActivity : AppCompatActivity() {
         val locationName = intent.getStringExtra("locationName")
         Log.e("Location Name", locationName.toString())
         imageView = bind.imageView
+
+        bind.helpButtonImage.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Image Upload Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "This page allows you to add images to the app.\n\n" +
+                    "The app knows where you just came from so you don't need to specify the type of picture you're adding.\n\n" +
+                    "All you need to do is press select image, pick the image from your library, and then hit upload image!\n\n" +
+                    "The back button will bring you back to the page that you came from."
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         val btnSelectImage: Button = bind.btnSelectImage
         btnSelectImage.setOnClickListener {

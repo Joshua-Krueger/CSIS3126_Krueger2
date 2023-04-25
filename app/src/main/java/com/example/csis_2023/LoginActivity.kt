@@ -1,11 +1,14 @@
 package com.example.csis_2023
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -13,10 +16,14 @@ import com.android.volley.toolbox.Volley
 import com.example.csis_2023.databinding.ActivityLoginBinding
 import org.json.JSONException
 import org.json.JSONObject
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bind : ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
+    // Declare a variable for the dialog
+    private lateinit var helpDialog: Dialog
+
     // Suppression must be included because of the getColumnIndex check below this is ok to ignore because the only way it will ever reach
     // that check is by confirming there are any accounts made. Therefore, the potential of a -1 is not a threat and can be suppressed
     @SuppressLint("Range")
@@ -44,6 +51,27 @@ class MainActivity : AppCompatActivity() {
             bind.rememberMeCheck.isChecked = true
         }
 
+        val helpButton = bind.helpButtonLogin
+        helpButton.setOnClickListener {
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Login Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "Steps for logging in:\n1. Enter your email in the email field\n2. Enter your password in the password field\n3. Select the remember me box if you want to have your information saved for the next time you open the app\n4. Click the login button\n\nIf you don't have an account, click on the message that says 'click here to register!' and it will bring you to the registration page."
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
+
+
         // listen for the click on login
         bind.loginBtn.setOnClickListener{
             loginRequest()
@@ -55,6 +83,26 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    /*private fun showHelpDialog() {
+        Log.e("starting help", "here")
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.help_overlay)
+
+        val helpMessage = dialog.findViewById<TextView>(R.id.messageHelp)
+        helpMessage.text = "Login page help message."
+        Log.e("setting help message: ", helpMessage.text.toString())
+
+        val closeHelpButton = dialog.findViewById<Button>(R.id.closeHelpButton)
+
+        closeHelpButton.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        Log.e("showing help", "here")
+    }*/
+
     private fun loginRequest() {
         //dorm room testing
         val url = "http://10.129.17.5/fishfinder/login.php"

@@ -1,9 +1,12 @@
 package com.example.csis_2023
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -14,6 +17,7 @@ import com.example.csis_2023.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var bind : ActivityProfileBinding
+    private lateinit var helpDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,32 @@ class ProfileActivity : AppCompatActivity() {
 
         val token = TokenManager.getToken().toString()
         profileRequest(token)
+
+        bind.helpButtonProfile.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Profile Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "From this page you can do a couple of things:\n" +
+                    "1. Change your profile picture\n    -click the change picture button.\n" +
+                    "2. See all of your fish and the locations you caught them at!\n    -click the button next to the fish caught text\n" +
+                    "3. see all of your locations listed out\n    -click the button next to the locations saved text.\n" +
+                    "4. see all locations saved on the app!\n    -click the locations button\n" +
+                    "5. See every location on a map!\n    -click the map button.\n" +
+                    "6. Logout\n    -press the logout button.\n\n" +
+                    "You can also view your trust rating. This is the value under the change picture button and is calculated based on other user's ratings of your locations"
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         bind.ChangeProfilePicBtn.setOnClickListener{
             val intent = Intent(this,ImageActivity::class.java)

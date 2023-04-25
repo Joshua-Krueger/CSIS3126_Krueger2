@@ -9,8 +9,8 @@ if($con){
 
 }
 
-$stmt = $con->prepare("SELECT * from users WHERE email=? AND password=?");
-$stmt->bind_param("ss",$_POST["email"],$_POST["password"]);
+$stmt = $con->prepare("SELECT * from users WHERE email=?");
+$stmt->bind_param("s",$_POST["email"]);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -18,7 +18,8 @@ if($result->num_rows==0){
 	echo "registering user";
 	$stmt = $con->prepare("INSERT into users (name, email, password)
 	VALUES (?,?,?)");
-	$stmt->bind_param("sss",$_POST["name"],$_POST["email"],$_POST["password"]);
+	$hashed_password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+	$stmt->bind_param("sss",$_POST["name"],$_POST["email"],$hashed_password);
 	$stmt->execute();
 	$result = $stmt->get_result();
 

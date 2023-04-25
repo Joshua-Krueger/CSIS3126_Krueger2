@@ -2,6 +2,7 @@ package com.example.csis_2023
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,6 +14,8 @@ import android.os.Bundle
 import java.math.BigDecimal
 import java.math.RoundingMode
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -35,12 +38,37 @@ class NewLocationActivity : AppCompatActivity() {
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
     private lateinit var bind : ActivityNewLocationBinding
+    private lateinit var helpDialog: Dialog
+
+    //TODO work on the activity to clean it up a bit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Log.e("token", TokenManager.getToken().toString())
         bind = ActivityNewLocationBinding.inflate(layoutInflater)
         setContentView(bind.root)
+
+        bind.helpButtonNewLocation.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "New Location Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "This page allows you to register a new location in the app\n\n" +
+                    "The location is automatically found based on your current location\n\n" +
+                    "All you have to do is name the location and add a description\n\n" +
+                    "Then click save and the location will appear in the locations page."
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         bind.newLocationBackBtn.setOnClickListener{
             val intent = Intent(this, CoordinateActivity::class.java)

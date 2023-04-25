@@ -1,9 +1,12 @@
 package com.example.csis_2023
 
+import android.app.Dialog
 import android.content.Intent
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -13,6 +16,8 @@ import com.example.csis_2023.databinding.ActivityRegistrationBinding
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var bind : ActivityRegistrationBinding
+    private lateinit var helpDialog: Dialog
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +25,26 @@ class RegistrationActivity : AppCompatActivity() {
 
         bind = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(bind.root)
+//todo work on all the toast messages
+//todo fix the thing in here that's supposed to send the user back to the login page when they register with the email already filled out
+        bind.helpButtonRegistration.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Registration Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "Full Name: Please enter your first and last name(I.E. John Smith)\nEmail: Please enter your email(I.E. Jsmith@gmail.com)\nPassword: Please enter a password that has the following:\n    A capital letter(I.E. A,B,C,D,E,...ETC)\n    A lowercase letter(I.E. a,b,c,d,e,...etc)\n    A special character(I.E. !,@,#,$,%,...etc)\n    A number(I.E. 1,2,3,4,5,6,...etc)\n    At least 8 characters\n    I.E. J0hnSm1th!\nThen click the register button!\n\nIf you need to go back to the login page, click the back button at the top!"
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         // this allows me to retrieve the email that the user tried to login with if they try to register an account
         bind.RegistrationEmail.setText(intent.getStringExtra("email"))

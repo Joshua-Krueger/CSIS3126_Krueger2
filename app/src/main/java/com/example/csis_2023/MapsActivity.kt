@@ -1,5 +1,6 @@
 package com.example.csis_2023
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var helpDialog: Dialog
+    private var selectedMarker: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.e("token", TokenManager.getToken().toString())
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.viewDetailsButton.setOnClickListener {
+            selectedMarker?.let { marker ->
+                val intent = Intent(this, LocationDetailsActivity::class.java)
+                intent.putExtra("name", marker.title)
+                startActivity(intent)
+            }
+        }
+
+
+        binding.helpButton.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Maps Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "This page is the map of all locations worldwide!\n\n" +
+                    "From this page, you can press the arrow in the top left to return to your profile\n\n" +
+                    "You can click on any marker to see its name and description\n\n" +
+                    "After clicking on a marker, you can click the view details button to go to its page!"
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         // Set the Toolbar as the support action bar
         setSupportActionBar(binding.toolbar)
@@ -68,6 +102,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         displayLocations()
 
+        map.setOnMarkerClickListener { marker ->
+            selectedMarker = marker
+            false
+        }
+
         map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
             override fun getInfoContents(marker: Marker): View? {
                 val view = layoutInflater.inflate(R.layout.marker_info_window, null)
@@ -77,7 +116,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 title.text = marker.title
                 snippet.text = marker.snippet
                 // TODO find a way to add the rating number from the database here so i can make the stars show up in the info window
-                // TODO also edit table in sql to have reviews, that way on each location data page, we can sort by review and all that.
                 return view
             }
 
@@ -105,7 +143,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     val newLocation = LatLng(latitude.toDouble(),longitude.toDouble())
 
-                    val markerOptions = MarkerOptions().position(newLocation).title(name).snippet("$description \nPlease go to the locations page from the profile to see the full information for this location.")
+                    val markerOptions = MarkerOptions().position(newLocation).title(name).snippet(description)
                     map.addMarker(markerOptions)
                     map.moveCamera(CameraUpdateFactory.newLatLng(newLocation))
 

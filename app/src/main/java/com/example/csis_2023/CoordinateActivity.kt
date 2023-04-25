@@ -1,6 +1,7 @@
 package com.example.csis_2023
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,8 @@ import com.example.csis_2023.databinding.ActivityCoordinateBinding
 class CoordinateActivity : AppCompatActivity() {
 
     private lateinit var bind : ActivityCoordinateBinding
+    private lateinit var helpDialog: Dialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,29 @@ class CoordinateActivity : AppCompatActivity() {
                 filterLayouts(s.toString())
             }
         })
+        bind.helpButtonCoords.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Location List Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "This page allows you to view all locations that users have added to the app!\n\n" +
+                    "The back button will return you to your profile\n\n" +
+                    "The add button will bring you to a new page where you can add a location\n\n" +
+                    "the search bar filters the locations based on what you search\n\n" +
+                    "The area where all the locations are displayed can be scrolled through to see them all\n\n" +
+                    "If you want to view a location, click the view details button"
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
         // search bar shenanigans^
         bind.addBtnCoords.setOnClickListener{
             val intent = Intent(this, NewLocationActivity::class.java)

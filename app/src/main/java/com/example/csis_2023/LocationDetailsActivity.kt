@@ -17,6 +17,8 @@ import org.json.JSONObject
 class LocationDetailsActivity : AppCompatActivity() {
 
     private lateinit var bind: ActivityLocationDetailsBinding
+    private lateinit var helpDialog: Dialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,32 @@ class LocationDetailsActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         locationDetailRequest(name)
+
+        bind.helpButtonLocationDetails.setOnClickListener{
+            helpDialog = Dialog(this)
+            helpDialog.setContentView(R.layout.help_overlay)
+
+            val helpTitle = helpDialog.findViewById<TextView>(R.id.titleHelp)
+            helpTitle.text = "Location Details Help"
+
+            val closeButton = helpDialog.findViewById<Button>(R.id.closeHelpButton)
+
+            val helpMessage = helpDialog.findViewById<TextView>(R.id.messageHelp)
+            helpMessage.text = "This page tells you everything the creator has listed about a location including:\n" +
+                    "1. A thumbnail image of the location\n" +
+                    "2. The location's name, location, and a brief description of it\n" +
+                    "3. The location's rating - this is based on the average of all of the ratings of this location\n\n" +
+                    "From this page, you can add click the rate button and fill out the page that shows up to rate the location\n" +
+                    "You can also click the add fish image button to add pictures you've taken of fish you catch at the location!\n\n" +
+                    "You can scroll through the pictures of fish people have added as well\n\n" +
+                    "The back button will take you to the page you last came from."
+
+            closeButton.setOnClickListener {
+                helpDialog.dismiss()
+            }
+
+            helpDialog.show()
+        }
 
         bind.addFishImageBtn.setOnClickListener{
             val intent = Intent(this, ImageActivity::class.java).apply {
@@ -147,7 +175,7 @@ class LocationDetailsActivity : AppCompatActivity() {
         gridView.adapter = adapter
     }
 
-    fun showRatingOverlay(name: String?) {
+    private fun showRatingOverlay(name: String?) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.rating_overlay)
 
@@ -158,13 +186,16 @@ class LocationDetailsActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
             // Get the rating and description values and do something with them
             val rating = ratingBar.rating
+            if(rating == null){
+                Toast.makeText(this,"Please select at least one star",Toast.LENGTH_SHORT).show()
+            }else{
             val description = descriptionEditText.text.toString()
 
             ratingRequest(rating,description,name)
             // Dismiss the dialog
             dialog.dismiss()
+            }
         }
-
         dialog.show()
     }
 
