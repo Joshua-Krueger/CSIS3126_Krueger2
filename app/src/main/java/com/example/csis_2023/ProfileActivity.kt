@@ -61,6 +61,11 @@ class ProfileActivity : AppCompatActivity() {
             helpDialog.show()
         }
 
+        bind.profileFishCountBtn.setOnClickListener{
+            val intent = Intent(this, UserFishActivity::class.java)
+            startActivity(intent)
+        }
+
         bind.ChangeProfilePicBtn.setOnClickListener{
             val intent = Intent(this,ImageActivity::class.java)
             startActivity(intent.putExtra("type","profile"))

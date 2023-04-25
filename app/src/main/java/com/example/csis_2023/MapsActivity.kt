@@ -59,7 +59,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             helpMessage.text = "This page is the map of all locations worldwide!\n\n" +
                     "From this page, you can press the arrow in the top left to return to your profile\n\n" +
                     "You can click on any marker to see its name and description\n\n" +
-                    "After clicking on a marker, you can click the view details button to go to its page!"
+                    "After clicking on a marker, you can click the view details button to go to its page!\n\n" +
+                    "You can also open the marker in google maps by clicking the buttons in the bottom right after selecting a marker!"
 
             closeButton.setOnClickListener {
                 helpDialog.dismiss()
