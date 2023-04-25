@@ -27,7 +27,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //TODO need to add buttons for user specific fish and location pages --> add functionality for these now
-        // also! calculate rating based on the rating of all of their locations (;-;)
 
         Log.e("token", TokenManager.getToken().toString())
         bind = ActivityProfileBinding.inflate(layoutInflater)
@@ -135,6 +134,7 @@ class ProfileActivity : AppCompatActivity() {
 
                         bind.ProfileName.text = name
                         bind.ProfileRatingBar.rating = trustRating.toFloat()
+                        Log.e("trust rating", trustRating.toFloat().toString())
                         bind.profileFishCountBtn.text = fishNum
                         bind.profileLocationCountBtn.text = locationNum
 

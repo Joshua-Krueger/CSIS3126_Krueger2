@@ -76,7 +76,8 @@
                     android:contentDescription="@string/star_rating"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="5" />
+                    android:rating="5"
+                    android:stepSize=".25" />
 
             </LinearLayout>
         </LinearLayout>
