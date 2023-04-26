@@ -26,8 +26,6 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO need to add buttons for user specific fish and location pages --> add functionality for these now
-
         Log.e("token", TokenManager.getToken().toString())
         bind = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(bind.root)
@@ -48,10 +46,9 @@ class ProfileActivity : AppCompatActivity() {
             helpMessage.text = "From this page you can do a couple of things:\n" +
                     "1. Change your profile picture\n    -click the change picture button.\n" +
                     "2. See all of your fish and the locations you caught them at!\n    -click the button next to the fish caught text\n" +
-                    "3. see all of your locations listed out\n    -click the button next to the locations saved text.\n" +
-                    "4. see all locations saved on the app!\n    -click the locations button\n" +
-                    "5. See every location on a map!\n    -click the map button.\n" +
-                    "6. Logout\n    -press the logout button.\n\n" +
+                    "3. see all locations saved on the app!\n    -click the locations button\n" +
+                    "4. See every location on a map!\n    -click the map button.\n" +
+                    "5. Logout\n    -press the logout button.\n\n" +
                     "You can also view your trust rating. This is the value under the change picture button and is calculated based on other user's ratings of your locations"
 
             closeButton.setOnClickListener {
@@ -141,7 +138,7 @@ class ProfileActivity : AppCompatActivity() {
                         bind.ProfileRatingBar.rating = trustRating.toFloat()
                         Log.e("trust rating", trustRating.toFloat().toString())
                         bind.profileFishCountBtn.text = fishNum
-                        bind.profileLocationCountBtn.text = locationNum
+                        bind.profileLocationCountText.text = locationNum
 
                         Glide.with(this)
                             .load(profilePictureUrl)

@@ -80,8 +80,13 @@ class LocationDetailsActivity : AppCompatActivity() {
         }
 
         bind.locationDetailsBackBtn.setOnClickListener {
-            val intent = Intent(this, CoordinateActivity::class.java)
-            startActivity(intent)
+            if (intent.getStringExtra("cameFrom") == "map"){
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, CoordinateActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         val queue = Volley.newRequestQueue(this)

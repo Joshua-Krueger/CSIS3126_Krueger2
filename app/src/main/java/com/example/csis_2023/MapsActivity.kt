@@ -41,6 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             selectedMarker?.let { marker ->
                 val intent = Intent(this, LocationDetailsActivity::class.java)
                 intent.putExtra("name", marker.title)
+                intent.putExtra("cameFrom", "map")
                 startActivity(intent)
             }
         }
@@ -85,7 +86,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onSupportNavigateUp(): Boolean {
         // Handle the up navigation button press
-        onBackPressed()
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
         return true
     }
 
@@ -116,7 +118,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 title.text = marker.title
                 snippet.text = marker.snippet
-                // TODO find a way to add the rating number from the database here so i can make the stars show up in the info window
                 return view
             }
 
