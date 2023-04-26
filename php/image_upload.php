@@ -4,10 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $encodedImage = $_POST['image'];
         $decodedImage = base64_decode($encodedImage);
         $imageName = 'image_' . uniqid() . '.jpg'; // unique filename
-        $imagePath = 'uploads/' . $imageName;
-        $file = fopen($imagePath, 'wb');
-        fwrite($file, $decodedImage);
-        fclose($file);
         //echo 'Image uploaded successfully.';
     } else {
         die('Image not found.');
@@ -46,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Execute the prepared statement with the location data
         if (mysqli_stmt_execute($stmt)) {
+            $imagePath = 'uploads/' . $imageName;
+            $file = fopen($imagePath, 'wb');
+            fwrite($file, $decodedImage);
+            fclose($file);
             echo 'Profile Success';
         } else {
             echo 'Error';
@@ -96,6 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_bind_param($stmt, "ss", $imagePath, $locationName);
         
         if(mysqli_stmt_execute($stmt)){
+            $imagePath = 'uploads/' . $imageName;
+            $file = fopen($imagePath, 'wb');
+            fwrite($file, $decodedImage);
+            fclose($file);
             echo 'Location Success';
         } else {
             echo 'Error';
@@ -136,6 +140,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_bind_param($stmt, "sss", $location_id, $user_id, $imagePath);
         
         if(mysqli_stmt_execute($stmt)){
+            $imagePath = 'uploads/' . $imageName;
+            $file = fopen($imagePath, 'wb');
+            fwrite($file, $decodedImage);
+            fclose($file);
             echo 'Fish Success';
         } else {
             echo 'Error';
