@@ -95,6 +95,7 @@ class RegistrationActivity : AppCompatActivity() {
                     Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
                 }
             }, Response.ErrorListener { error ->
+                Log.e("error message", error.message.toString())
                 Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): MutableMap<String, String> {

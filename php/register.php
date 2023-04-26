@@ -15,19 +15,16 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if($result->num_rows==0){
-	echo "registering user";
-	$stmt = $con->prepare("INSERT into users (name, email, password)
-	VALUES (?,?,?)");
+	//echo "registering user";
+	$stmt = $con->prepare("INSERT into users (name, email, password) VALUES (?,?,?)");
 	$hashed_password = password_hash($_POST["password"], PASSWORD_BCRYPT);
 	$stmt->bind_param("sss",$_POST["name"],$_POST["email"],$hashed_password);
-	$stmt->execute();
-	$result = $stmt->get_result();
-
-	if ($result->num_rows==1) {
+	if ($stmt->execute()) {
 		echo "success";
 	}else{
 		echo "failed";
 	}
+
 
 }else{
 	echo "user already exists";
