@@ -149,7 +149,7 @@ class LocationDetailsActivity : AppCompatActivity() {
                 Log.e("error", error.toString())
                 Toast.makeText(
                     this,
-                    "something went wrong with displaying locations",
+                    "something went wrong with displaying location details",
                     Toast.LENGTH_LONG
                 ).show()
             })

@@ -9,7 +9,8 @@ if($con){
 
 }
 
-$stmt = $con->prepare("UPDATE users SET token= NULL");
+$stmt = $con->prepare("UPDATE users SET token = NULL WHERE token = ?");
+$stmt->bind_param("s",$_POST["token"]);
 $stmt->execute();
 $result = $stmt->get_result();
 
