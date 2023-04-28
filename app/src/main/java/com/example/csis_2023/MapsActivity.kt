@@ -152,7 +152,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             },
             { error ->
-                Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error displaying locations: none to display", Toast.LENGTH_SHORT).show()
             })
 
         queue.add(request)

@@ -79,9 +79,9 @@ class NewLocationActivity : AppCompatActivity() {
             val name = bind.locationName.text.toString()
             val description = bind.locationDescription.text.toString()
             if (name == "" || description == ""){
-                Toast.makeText(this,"all fields must be filled",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"all fields must be filled",Toast.LENGTH_SHORT).show()
             }else if (description.length > 255){
-                Toast.makeText(this,"Description must be less than 255 characters long.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Description must be less than 255 characters long.",Toast.LENGTH_SHORT).show()
             }else{
                 newLocationRequest()
             }
@@ -225,12 +225,12 @@ class NewLocationActivity : AppCompatActivity() {
                     val intent = Intent(this, CoordinateActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
             },
             Response.ErrorListener { error ->
                 Log.e("error message", error.message.toString())
-                Toast.makeText(this, "Error with response: " + error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error with response: " + error.message, Toast.LENGTH_SHORT).show()
             }) {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()

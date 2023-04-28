@@ -119,11 +119,11 @@ class ImageActivity : AppCompatActivity() {
             val stringRequest = object : StringRequest(Request.Method.POST, url,
                 Response.Listener<String> { response ->
                     Log.e("response", response.toString())
-                    Toast.makeText(applicationContext, response, Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, response, Toast.LENGTH_SHORT).show()
                 },
                 Response.ErrorListener { error ->
                     Log.e("error with image upload", error.toString())
-                    Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
                 }
             ) {
                 override fun getParams(): MutableMap<String, String> {
@@ -142,7 +142,7 @@ class ImageActivity : AppCompatActivity() {
             val requestQueue = Volley.newRequestQueue(this)
             requestQueue.add(stringRequest)
         } else {
-            Toast.makeText(applicationContext, "Please select an image first.", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Please select an image first.", Toast.LENGTH_SHORT).show()
         }
     }
 }

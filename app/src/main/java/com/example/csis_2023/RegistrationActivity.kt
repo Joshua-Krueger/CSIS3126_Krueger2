@@ -25,8 +25,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         bind = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(bind.root)
-//todo work on all the toast messages
-//todo fix the thing in here that's supposed to send the user back to the login page when they register with the email already filled out
+
         bind.helpButtonRegistration.setOnClickListener{
             helpDialog = Dialog(this)
             helpDialog.setContentView(R.layout.help_overlay)
@@ -68,7 +67,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (message == ""){
                     registerRequest(name, email, password)
                 }else{
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 }
             }else{
                 Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show()
@@ -96,7 +95,7 @@ class RegistrationActivity : AppCompatActivity() {
                 }
             }, Response.ErrorListener { error ->
                 Log.e("error message", error.message.toString())
-                Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
             }) {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()

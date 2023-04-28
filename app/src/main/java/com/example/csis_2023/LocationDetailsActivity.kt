@@ -150,7 +150,7 @@ class LocationDetailsActivity : AppCompatActivity() {
                 Toast.makeText(
                     this,
                     "something went wrong with displaying location details",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
             })
 
@@ -221,12 +221,12 @@ class LocationDetailsActivity : AppCompatActivity() {
                 if (response.getString(("status")) == "success") {
                     Toast.makeText(this,"Rating Received",Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this,response.getString("message"),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,response.getString("message"),Toast.LENGTH_SHORT).show()
                 }
             },
             { error ->
                 Log.e("error message: ", error.toString())
-                Toast.makeText(this, "something went wrong with adding the rating", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "something went wrong with adding the rating", Toast.LENGTH_SHORT).show()
             })
         queue.add(request)
     }

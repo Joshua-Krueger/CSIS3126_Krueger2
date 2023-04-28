@@ -138,7 +138,7 @@ class CoordinateActivity : AppCompatActivity() {
                 }
             },
             { error ->
-                Toast.makeText(this, "something went wrong with displaying locations", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "something went wrong with displaying locations", Toast.LENGTH_SHORT).show()
             })
 
         queue.add(request)

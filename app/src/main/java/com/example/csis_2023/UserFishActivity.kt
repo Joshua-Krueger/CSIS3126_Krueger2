@@ -92,7 +92,7 @@ class UserFishActivity : AppCompatActivity() {
             },
             Response.ErrorListener { error ->
                 Log.e("error",error.message.toString())
-                Toast.makeText(this, "Error displaying fish images: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error displaying fish images: ${error.message}", Toast.LENGTH_SHORT).show()
             }) {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
