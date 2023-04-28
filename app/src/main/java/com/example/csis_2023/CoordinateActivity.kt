@@ -82,7 +82,7 @@ class CoordinateActivity : AppCompatActivity() {
     //function for the search bar to filter with
     private fun filterLayouts(searchText: String) {
         // gets all of the layouts added by the display function
-        val coordsHolder = findViewById<LinearLayout>(R.id.fishContainer)
+        val coordsHolder = findViewById<LinearLayout>(R.id.coordsContainer)
         val childCount = coordsHolder.childCount
 
         // looks through them
