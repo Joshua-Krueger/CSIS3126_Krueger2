@@ -194,11 +194,14 @@ class LocationDetailsActivity : AppCompatActivity() {
             if(rating == null){
                 Toast.makeText(this,"Please select at least one star",Toast.LENGTH_SHORT).show()
             }else{
-            val description = descriptionEditText.text.toString()
+                val description = descriptionEditText.text.toString()
 
-            ratingRequest(rating,description,name)
-            // Dismiss the dialog
-            dialog.dismiss()
+                ratingRequest(rating,description,name)
+                // Dismiss the dialog
+                dialog.dismiss()
+                val intent = Intent(this,LocationDetailsActivity::class.java)
+                intent.putExtra("name", name)
+                startActivity(intent)
             }
         }
         dialog.show()
